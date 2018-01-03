@@ -10,7 +10,7 @@
 
 (in-package :steeple.operators)
 
-(setf >> #'steeple.fp:partial-l 
-      << #'steeple.fp:partial-r
-      >* #'mapcar
-      -> #'apply)
+(setf (symbol-function :>>) #'steeple.fp:partial-l 
+      (symbol-function :<<) #'steeple.fp:partial-r
+      (symbol-function :>*) #'mapcar
+      (symbol-function :->) #'apply)
