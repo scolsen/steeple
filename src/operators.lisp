@@ -1,4 +1,4 @@
-(defpackage :steeple.operators
+(defpackage steeple.operators
     (:use :cl)
     (:import-from :steeple.fp
                   :partial-l
@@ -8,7 +8,9 @@
              :>*
              :->))
 
-(setf >> #'partial-l 
-      << #'partial-r
+(in-package :steeple.operators)
+
+(setf >> #'steeple.fp:partial-l 
+      << #'steeple.fp:partial-r
       >* #'mapcar
       -> #'apply)
