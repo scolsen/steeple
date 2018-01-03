@@ -8,5 +8,6 @@
     :serial t
     :components ((:module "src"
                   :components 
-                      ((:file "fp")
+                      ((:file "predicates")
+                       (:file "fp")
                        (:file "operators")))))
