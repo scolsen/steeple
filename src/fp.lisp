@@ -6,7 +6,9 @@
              :partial-r
              :thunk
              :gate
-             :deep-map))
+             :deep-map
+             :sequence-map
+             :deep-seq))
 
 (in-package :steeple.fp)
 
@@ -30,6 +32,16 @@
 
 (defun deep-map (fn arguments)
     (mapcar (gate #'steeple.predicates:non-empty-list? (partial-l #'deep-map fn) fn) arguments)) 
+
+(defun sequence-map (fns arguments) 
+    (if (null fns) 
+        arguments 
+        (sequence-map (cdr fns) (mapcar (lambda (x) (funcall (car fns) x)) arguments))))    
+
+(defun deep-seq (fns arguments)
+    (if (null fns) 
+        arguments 
+        (deep-seq (cdr fns) (deep-map (car fns) arguments))))
 
 (defun andf (t-val-one t-val-two) 
     "Common lisp's and is a control structure. andf is a function and can thus be passed to map or reduce."  
