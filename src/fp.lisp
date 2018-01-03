@@ -8,7 +8,9 @@
              :gate
              :deep-map
              :sequence-map
-             :deep-seq))
+             :deep-seq
+             :accumulator
+             :summarize))
 
 (in-package :steeple.fp)
 
@@ -60,3 +62,9 @@
     (setf (symbol-function name) 
           (let ((x initial-value)) 
                (lambda (&rest y) (setf x (apply binary-fn (append (list x) y)))))))
+
+(defun summarize (accum predicate arguments) 
+    (let ((self (partial-l #'summarize accum predicate))) 
+         (if (funcall predicate (funcall accum)) 
+             (funcall accum)
+             (progn (funcall accum (car arguments)) (summarize accum predicate (cdr arguments))))))
