@@ -30,3 +30,21 @@
 
 (defun deep-map (fn arguments)
     (mapcar (gate #'steeple.predicates:non-empty-list? (partial-l #'deep-map fn) fn) arguments)) 
+
+(defun andf (t-val-one t-val-two) 
+    "Common lisp's and is a control structure. andf is a function and can thus be passed to map or reduce."  
+    (if (and t-val-one t-val-two)
+        t
+        nil))
+ 
+(defun orf (t-one t-two) 
+    "Common lisp's or is a control structure. orf is a function and can thus be passed to map or reduce."  
+    (if (or t-one t-two)
+        t
+        nil)
+
+(defun accumulator (name binary-fn initial-value) 
+    "Define a new accumlator function. A binary function that memorizes and accumulates some value."
+    (setf (symbol-function name) 
+          (let ((x initial-value)) 
+               (lambda (&rest y) (setf x (apply binary-fn (append (list x) y)))))) 
