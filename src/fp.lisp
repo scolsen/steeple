@@ -41,10 +41,10 @@
     "Common lisp's or is a control structure. orf is a function and can thus be passed to map or reduce."  
     (if (or t-one t-two)
         t
-        nil)
+        nil))
 
 (defun accumulator (name binary-fn initial-value) 
     "Define a new accumlator function. A binary function that memorizes and accumulates some value."
     (setf (symbol-function name) 
           (let ((x initial-value)) 
-               (lambda (&rest y) (setf x (apply binary-fn (append (list x) y)))))) 
+               (lambda (&rest y) (setf x (apply binary-fn (append (list x) y)))))))
