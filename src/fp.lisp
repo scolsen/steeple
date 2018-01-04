@@ -63,7 +63,9 @@
     (setf (symbol-function name) 
           (let ((x initial-value)) 
                (lambda (&rest y) 
-                       (setf x (apply binary-fn (append (list x) y)))))))
+                       (if (steeple.predicates:non-empty-list? y) 
+                           (setf x (apply binary-fn (append (list x) y))) 
+                           x)))))
 
 ;;; A generator is one or more accumulators with some rules attached on how to combine them (perform a merge of accumulations).
 
