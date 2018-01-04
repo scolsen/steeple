@@ -10,6 +10,7 @@
              :sequence-map
              :deep-seq
              :accumulator
+             :accumulate-n
              :summarize))
 
 (in-package :steeple.fp)
@@ -58,13 +59,38 @@
         nil))
 
 (defun accumulator (name binary-fn initial-value) 
-    "Define a new accumlator function. A binary function that memorizes and accumulates some value."
+    "Define a new accumulator function. A binary function that memorizes and accumulates some value."
     (setf (symbol-function name) 
           (let ((x initial-value)) 
-               (lambda (&rest y) (setf x (apply binary-fn (append (list x) y)))))))
+               (lambda (&rest y) 
+                       (setf x (apply binary-fn (append (list x) y)))))))
+
+;;; A generator is one or more accumulators with some rules attached on how to combine them (perform a merge of accumulations).
+
+(defun accumulate-n (accum n &rest arguments) 
+    "Accumulate n times."
+    (let ((fn)) (if (steeple.predicates:non-empty-list? arguments) 
+          (setf fn (apply #'partial-l accum arguments)) 
+          (setf fn accum))
+      (dotimes (num n) 
+          (funcall fn))) (funcall accum))
+
+;(defun generator (name binary-fn initial-value &key predicate handler)
+;  (setf (symbol-function name) 
+;        (let ((x initial-value)) 
+;              (cond (predicate handler) 
+;                    () 
+;                    (t t))))
 
 (defun summarize (accum predicate arguments) 
     (let ((self (partial-l #'summarize accum predicate))) 
          (if (funcall predicate (funcall accum)) 
              (funcall accum)
              (progn (funcall accum (car arguments)) (summarize accum predicate (cdr arguments))))))
+
+;(defun flatten (items) 
+;    (let ((result nil)) 
+;         (lambda () 
+;                 (cond ((#'steeple.predicates:non-empty-list? (car items)) t) 
+;                       ((atom (car items)) (cons x result))
+;                       (t t))))
