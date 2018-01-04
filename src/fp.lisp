@@ -4,6 +4,7 @@
                   :non-empty-list?)
     (:export :partial-l
              :partial-r
+             :chain-l
              :thunk
              :gate
              :deep-map
@@ -20,6 +21,11 @@
 
 (defun partial-r (fn &rest arguments)
     (lambda (&rest arguments2) (apply fn (append arguments2 arguments))))
+
+(defun chain-l (fns &rest args) 
+    (if (null fns) 
+        args 
+        (chain-l (cdr fns) (apply (car fns) args))))
 
 (defun thunk (x) 
     (lambda () x))
