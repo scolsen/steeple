@@ -9,5 +9,9 @@
                   :serial t
                   :components 
                       ((:file "predicates")
+                       (:file "curry")
+                       (:file "accumulators")
+                       (:file "reducers")
+                       (:file "mappers")
                        (:file "fp")
                        (:file "operators")))))
