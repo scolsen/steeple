@@ -12,6 +12,7 @@
                        (:file "guards")
                        (:file "applicators")
                        (:file "accumulators")
+                       (:file "generators")
                        (:file "reducers")
                        (:file "mappers")
                        (:file "fp")
