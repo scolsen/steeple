@@ -14,6 +14,6 @@
 
 (defun chain-l (fns &rest args) 
     (if (null fns) 
-        args 
+        args ;we need to flatten here.
         (chain-l (cdr fns) (apply (car fns) args))))
 

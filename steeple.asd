@@ -9,6 +9,7 @@
                   :serial t
                   :components 
                       ((:file "predicates")
+                       (:file "guards")
                        (:file "applicators")
                        (:file "accumulators")
                        (:file "reducers")

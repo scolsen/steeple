@@ -3,11 +3,7 @@
     (:import-from :steeple.predicates
                   :non-empty-list?)
     (:export :thunk
-             :gate
-             :deep-seq
-             :accumulator
-             :accumulate-n
-             :summarize))
+             :gate))
 
 (in-package :steeple.fp)
 
@@ -20,12 +16,14 @@
             (funcall function1 x) 
             (funcall function2 x))))
 
+(defun guards () ())
+
 (defun gate-map (predicate function1 function2 arguments)
     (mapcar (gate predicate function1 function2) arguments))
 
-(defun andf (t-val-one t-val-two) 
+(defun andf (t-one t-two) 
     "Common lisp's and is a control structure. andf is a function and can thus be passed to map or reduce."  
-    (if (and t-val-one t-val-two)
+    (if (and t-one t-two)
         t
         nil))
  

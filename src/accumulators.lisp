@@ -3,9 +3,14 @@
     (:import-from :steeple.predicates
                   :non-empty-list?)
     (:import-from :steeple.applicators
-                  :partial-l)
+                  :partial-l
+                  :chain-l)
+    (:import-from :steeple.mappers
+                  :smap)
     (:export :accumulator
-             :accumulate-n))
+             :list-accumulator
+             :accumulate-n
+             :generator))
 
 (in-package steeple.accumulators)
 
@@ -15,6 +20,14 @@
                (lambda (&rest y) 
                        (if (steeple.predicates:non-empty-list? y) 
                            (setf x (apply binary-fn (append (list x) y))) 
+                           x)))))
+
+(defun generator (name fn initial-value priors &key (apply-init nil apply-init?)) 
+    (setf (symbol-function name) 
+          (let ((x (if apply-init? (chain-l priors initial-value) initial-value))) 
+               (lambda (&rest y) 
+                       (if (steeple.predicates:non-empty-list? y)
+                           (setf x (apply fn (append (list x) (smap priors y))))
                            x)))))
 
 (defun accumulate-n (accum n &rest arguments) 
