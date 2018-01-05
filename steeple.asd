@@ -9,7 +9,7 @@
                   :serial t
                   :components 
                       ((:file "predicates")
-                       (:file "curry")
+                       (:file "applicators")
                        (:file "accumulators")
                        (:file "reducers")
                        (:file "mappers")

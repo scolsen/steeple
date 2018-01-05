@@ -1,6 +1,6 @@
 (defpackage steeple.reducers
     (:use :cl)
-    (:import-from :steeple.curry
+    (:import-from :steeple.applicators
                   :partial-l)
     (:export :summarize))
 

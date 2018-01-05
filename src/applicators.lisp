@@ -1,10 +1,10 @@
-(defpackage steeple.curry
+(defpackage steeple.applicators
     (:use :cl)
     (:export :partial-l
              :partial-r
              :chain-l))
 
-(in-package steeple.curry)
+(in-package steeple.applicators)
 
 (defun partial-l (fn &rest arguments)
     (lambda (&rest args2) (apply fn (append arguments args2))))

@@ -1,6 +1,6 @@
 (defpackage steeple.operators
     (:use :cl)
-    (:import-from :steeple.curry
+    (:import-from :steeple.applicators
                   :partial-l
                   :partial-r)
     (:export :>>
@@ -10,7 +10,7 @@
 
 (in-package :steeple.operators)
 
-(setf (symbol-function :>>) #'steeple.curry:partial-l 
-      (symbol-function :<<) #'steeple.curry:partial-r
+(setf (symbol-function :>>) #'steeple.applicators:partial-l 
+      (symbol-function :<<) #'steeple.applicators:partial-r
       (symbol-function :>*) #'mapcar
       (symbol-function :->) #'apply)

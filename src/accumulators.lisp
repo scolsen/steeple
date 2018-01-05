@@ -2,7 +2,7 @@
     (:use :cl)
     (:import-from :steeple.predicates
                   :non-empty-list?)
-    (:import-from :steeple.curry
+    (:import-from :steeple.applicators
                   :partial-l)
     (:export :accumulator
              :accumulate-n))
@@ -19,7 +19,7 @@
 
 (defun accumulate-n (accum n &rest arguments) 
     (let ((fn)) (if (steeple.predicates:non-empty-list? arguments) 
-          (setf fn (apply #'steeple.curry:partial-l accum arguments)) 
+          (setf fn (apply #'steeple.applicators:partial-l accum arguments)) 
           (setf fn accum))
       (dotimes (num n) 
           (funcall fn))) (funcall accum))
