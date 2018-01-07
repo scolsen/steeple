@@ -4,12 +4,13 @@
 
 (in-package :steeple.guards)
 
-;(defmacro guard (pred-bodies default) 
-;    (let ((forms))
-;        (cond ((null pred-bodies) `(cond ,@forms (t ,default))) 
-;              (t (setf forms (append forms `(((,(car pred-bodies)) (,(car (cdr(pred-bodies)))))))))
-;      ))
-;
-;(defmacro guard (pred-bodies defualt) 
-;    (let ((forms)) 
-;        (lambda () ())))
+(defmacro guard (predicates bodies default) 
+    (labels ((recur (p b forms carp carb) 
+                    (cond ((null p) `(lambda () (cond ,@forms (t ,default)))) 
+                          (t (recur (cdr p) 
+                                    (cdr b) 
+                                    (append forms (list `(,carp ,carb)))
+                                    (car (cdr p))
+                                    (car (cdr b))))))) 
+            (recur predicates bodies nil (car predicates) (car bodies))))
+
