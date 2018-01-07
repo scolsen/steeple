@@ -1,6 +1,6 @@
 (defpackage steeple.applicators
     (:use :cl)
-    (:import-from :steeple.reducers
+    (:import-from :steeple.core
                   :flatten)
     (:export :partial-l
              :partial-r
@@ -16,6 +16,6 @@
 
 (defun chain-l (fns &rest args) 
     (if (null fns) 
-        (steeple.reducers:flatten args) ;we need to flatten here.
+        (steeple.core:flatten args) ;we need to flatten here.
         (chain-l (cdr fns) (apply (car fns) args))))
 

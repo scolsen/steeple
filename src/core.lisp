@@ -1,11 +1,12 @@
-(defpackage steeple.fp
+(defpackage steeple.core
     (:use :cl)
     (:import-from :steeple.predicates
                   :non-empty-list?)
     (:export :thunk
+             :flatten
              :gate))
 
-(in-package :steeple.fp)
+(in-package :steeple.core)
 
 (defun thunk (x) 
     (lambda () x))
@@ -30,3 +31,10 @@
     (if (or t-one t-two)
         t
         nil))
+
+(defun flatten (items)
+	(labels ((rec (items acc)
+		(cond ((null items) acc)
+			((atom items) (cons items acc))
+			(t (rec (car items) (rec (cdr items) acc))))))
+		(rec items nil)))
