@@ -9,11 +9,11 @@
                   :serial t
                   :components 
                       ((:file "predicates")
+                       (:file "core")
                        (:file "guards")
                        (:file "applicators")
+                       (:file "mappers")
                        (:file "accumulators")
                        (:file "generators")
                        (:file "reducers")
-                       (:file "mappers")
-                       (:file "fp")
                        (:file "operators")))))
