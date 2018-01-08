@@ -1,9 +1,9 @@
 # Guard Syntax
 
-Because guards are used for function definition, they require special syntax:
+Because guards are defined as a macro used for function definition, they require special syntax:
 
 ```common-lisp
-(guard (predicate-forms) (body-forms) (default form))
+(guard (predicate-forms) (body-forms) (default-form))
 (guard ((evenp 2) (oddp 1)) ((+ 1 2) (* 8 9)) (* 3 4))
 ```
 The preceding invocation results in the following form:
@@ -17,9 +17,9 @@ The preceding invocation results in the following form:
 
 ## Example Function
 
-The following example uses guard to define a function
+The following example shows how to use guard to define a function.
 
-Notice the lambda closure provided by guard provides access to the function arguments.
+Notice the lambda closure provided by guard grants access to the function's arguments:
 ```common-lisp
 (defun test-guard (x y) 
     (guard ((evenp x)) ((+ x y)) (* 8 8)))
