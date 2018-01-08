@@ -24,6 +24,6 @@ Notice the lambda closure provided by guard grants access to the function's argu
 (defun test-guard (x y) 
     (guard ((evenp x)) ((+ x y)) (* 8 8)))
 
-(test-guard 2) => 3
-(test-guard 5) => 64
+(test-guard 2 1) => 3
+(test-guard 5 1) => 64
 ```
