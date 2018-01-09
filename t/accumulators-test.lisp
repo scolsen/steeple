@@ -5,6 +5,10 @@
           :steeple.accumulators))
 (in-package :accumulators-test)
 
+(plan nil)
+
 (subtest "Basic accumulator"
     (steeple.accumulators:accumulator 'testacc #'+ 0)
     (is-type #'testacc 'compiled-function))
+
+(finalize)
