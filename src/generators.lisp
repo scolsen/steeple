@@ -10,9 +10,10 @@
 
 (in-package :steeple.generators)
 
-(defun generator (name fn initial-value priors &key (apply-init nil apply-init?)) 
+(defun generator (name fn initial-value priors &key (init nil init?)) 
+    (declare (ignore init))
     (setf (symbol-function name) 
-          (let ((x (if apply-init? (steeple.applicators:chain-l priors initial-value) initial-value))) 
+          (let ((x (if init? (steeple.applicators:chain-l priors initial-value) initial-value))) 
                (lambda (&rest y) 
                        (if (steeple.predicates:non-empty-list? y)
                            (setf x (apply fn (append (list x) (steeple.mappers:smap priors y))))
